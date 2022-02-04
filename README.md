@@ -1,29 +1,37 @@
-Notes for deploying JupyterHub to EKS from an Amazon Workspace using eksctl.
+Notes for deploying JupyterHub to EKS using eksctl.
 
 ### Install (Windows)
 
-[kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html)  
+[kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) 
 
-```
-mkdir /c/bin && cd /c/bin
-
-curl -o kubectl.exe https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/windows/amd64/kubectl.exe
-```
-add c:\bin to PATH
+- add c:\bin to PATH
 
 [chocolatey](https://chocolatey.org/install)  
 
-```
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))   
-```
-
 [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
-```
-choco install -y eksctl
-```  
-
 [helm](https://docs.aws.amazon.com/eks/latest/userguide/helm.html)  
+
+
+### eksctl
+
 ```
-choco install -y kubernetes-helm
+eksctl create cluster \
+--name jhub \
+--region us-east-1 \
+--dry-run > cluster.yml
 ```
+
+Add [service account](https://eksctl.io/usage/iamserviceaccounts/#usage-with-config-files)
+
+```
+  serviceAccounts:
+  - metadata:
+      name: redshift
+      namespace: jhub
+      labels: {aws-usage: "application"}
+    attachPolicyARNs:
+    - "arn:aws:iam::aws:policy/AmazonRedshiftDataFullAccess"
+```
+
+`eksctl create cluster -f cluster.yml`
