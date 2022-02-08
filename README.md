@@ -26,6 +26,8 @@ eksctl create cluster \
 Add [service account](https://eksctl.io/usage/iamserviceaccounts/#usage-with-config-files)
 
 ```
+iam:
+  withOIDC: true
   serviceAccounts:
   - metadata:
       name: redshift
