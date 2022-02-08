@@ -1,6 +1,7 @@
 Notes for deploying JupyterHub to EKS using eksctl.
 
-### Install (Windows)
+## Install (Windows)
+---
 
 [kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) 
 
@@ -13,8 +14,8 @@ Notes for deploying JupyterHub to EKS using eksctl.
 [helm](https://docs.aws.amazon.com/eks/latest/userguide/helm.html)  
 
 
-### eksctl
-
+## eksctl
+---
 ```
 eksctl create cluster \
 --name jhub \
@@ -35,3 +36,20 @@ Add [service account](https://eksctl.io/usage/iamserviceaccounts/#usage-with-con
 ```
 
 `eksctl create cluster -f cluster.yml`
+
+## helm
+---
+[Install JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/installation.html)
+```
+helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+helm repo update
+
+helm upgrade --cleanup-on-fail \
+  --install jhub jupyterhub/jupyterhub \
+  --namespace jhub \
+  --create-namespace \
+  --version=1.2.0 \
+  --values config.yml
+```
+**Update config**  
+`helm upgrade -f config.yml -n jhub jhub jupyterhub/jupyterhub`
