@@ -14,24 +14,16 @@ Notes for deploying JupyterHub to EKS using eksctl.
 
 ## redshift
 
+Create a test user
 ```
 create user test_user password '<PASSWORD>';
 
 grant select on dev.public.names_2010_census to test_user;
 ```
 
-## eksctl
+Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html)
 
-```
-eksctl create cluster \
---name jhub \
---region us-east-1 \
---dry-run > cluster.yml
-```
 
-Create a policy to allow [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html)
-
-RedshiftGetClusterCredentials
 ```
 {
     "Version": "2012-10-17",
@@ -43,6 +35,15 @@ RedshiftGetClusterCredentials
         }
     ]
 }
+```
+
+## eksctl
+
+```
+eksctl create cluster \
+--name jhub \
+--region us-east-1 \
+--dry-run > cluster.yml
 ```
 
 Add [service account](https://eksctl.io/usage/iamserviceaccounts/#usage-with-config-files)
