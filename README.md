@@ -119,21 +119,21 @@ proxy:
 Run helm upgrade
 
 ## Redshift
-Create cluster subnet group (jhub-cluster-subnet-group)
+Create cluster subnet group (**jhub-cluster-subnet-group**)
 - VPC:  The EKS VPC
 - Add all the subnets for this VPC
 
-Create security group (eks-vpc-sg)
+Create security group (**eks-vpc-sg**)
 - Inbound rule: All traffic, 192.168.0.0/16
 
-Create cluster (jhub-cluster)
+Create cluster (**jhub-cluster**)
 - Node:  1 dc2.large
 - Admin:  jhubadmin
 - Role: Manage IAM roles->Create IAM role (any s3)
 - Network
   - VPC: The EKS VPC
-  - Security group: eks-vpc-sg
-  - Cluster subnet group: jhub-cluster-subnet-group
+  - Security group: **eks-vpc-sg**
+  - Cluster subnet group: **jhub-cluster-subnet-group**
 
 Load [2010 Census Surname](https://www.census.gov/topics/population/genealogy/data/2010_surnames.html) data
 
