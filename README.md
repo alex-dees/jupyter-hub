@@ -142,3 +142,11 @@ create user test_user password '<PASSWORD>';
 
 grant select on dev.public.names_2010_census to test_user;
 ```
+## Uninstall
+
+Delete Redshift cluster and subnet group
+```
+helm delete jhub -n jhub
+kubectl delete namespace jhub
+eksctl delete cluster -f cluster.yml
+```
