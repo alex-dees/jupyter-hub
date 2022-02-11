@@ -32,7 +32,7 @@ Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredential
 
 ## eksctl
 
-By default, create cluster will [create a dedicated VPC](https://eksctl.io/usage/vpc-networking/)
+Cluster [dry run](https://eksctl.io/usage/dry-run/)  
 
 ```
 eksctl create cluster \
@@ -56,6 +56,7 @@ iam:
     - "arn:aws:iam::aws:policy/AmazonRedshiftDataFullAccess"
     - "arn:aws:iam::<ACCOUNT ID>:policy/RedshiftGetClusterCredentials"
 ```
+Create cluster ([creates a dedicated VPC](https://eksctl.io/usage/vpc-networking/))
 
 `eksctl create cluster -f cluster.yml`
 
