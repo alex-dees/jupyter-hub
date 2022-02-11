@@ -62,7 +62,7 @@ Create cluster [creates a dedicated VPC](https://eksctl.io/usage/vpc-networking/
 
 ## helm
 
-Create config.yml
+Create [config.yml](https://zero-to-jupyterhub.readthedocs.io/en/latest/resources/reference.html)
 
 ```
 singleuser:
