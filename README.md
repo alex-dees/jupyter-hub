@@ -73,7 +73,7 @@ helm upgrade --cleanup-on-fail \
   --version=1.2.0 \
   --values config.yml
 ```
-To update the config, run upgrade:  
+To update the config:  
 `helm upgrade -f config.yml -n jhub jhub jupyterhub/jupyterhub`
 
 ## DNS 
