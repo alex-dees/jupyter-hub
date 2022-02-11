@@ -1,4 +1,4 @@
-Notes for deploying JupyterHub to EKS using eksctl.
+Notes for manually deploying JupyterHub to EKS using eksctl.
 
 ## Install (Windows)
 
@@ -12,16 +12,9 @@ Notes for deploying JupyterHub to EKS using eksctl.
 
 [helm](https://docs.aws.amazon.com/eks/latest/userguide/helm.html)  
 
-## redshift
+## IAM
 
-Create a test user
-```
-create user test_user password '<PASSWORD>';
-
-grant select on dev.public.names_2010_census to test_user;
-```
-
-Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html)
+Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html).  The Redshift cluster and user are created later.
 
 
 ```
@@ -31,13 +24,15 @@ Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredential
         {
             "Effect": "Allow",
             "Action": "redshift:GetClusterCredentials",
-            "Resource": "arn:aws:redshift:<REGION>:<ACCOUNT>:dbuser:<CLUSTER>/test_user"
+            "Resource": "arn:aws:redshift:<REGION>:<ACCOUNT>:dbuser:jhub-cluster/test_user"
         }
     ]
 }
 ```
 
 ## eksctl
+
+By default, create cluster will [create a dedicated VPC](https://eksctl.io/usage/vpc-networking/)
 
 ```
 eksctl create cluster \
@@ -64,8 +59,6 @@ iam:
 
 `eksctl create cluster -f cluster.yml`
 
-## dns & tls
-
 ## helm
 
 [Install JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/installation.html)
@@ -80,5 +73,24 @@ helm upgrade --cleanup-on-fail \
   --version=1.2.0 \
   --values config.yml
 ```
-**Update config**  
+Run upgrade for config updates:  
 `helm upgrade -f config.yml -n jhub jhub jupyterhub/jupyterhub`
+
+## DNS 
+Create R53 domain/zone e.g. deeslabs.com  
+Add CNAME record (jhub.deeslabs.com) for [proxy-public](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html#set-up-your-domain) ALB
+
+## TLS
+
+Create ACM cert for domain (jhub.deeslabs.com)  
+[Update the Helm config.yml](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html#off-loading-ssl-to-a-load-balancer)  
+Run helm upgrade
+
+## Redshift
+
+Create a test user
+```
+create user test_user password '<PASSWORD>';
+
+grant select on dev.public.names_2010_census to test_user;
+```
