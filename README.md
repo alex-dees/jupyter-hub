@@ -1,4 +1,4 @@
-Notes for manually deploying JupyterHub to EKS using eksctl.
+Notes for manually deploying JupyterHub to EKS from an Amazon Workspace.
 
 ## Install (Windows)
 
