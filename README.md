@@ -61,6 +61,25 @@ iam:
 
 ## helm
 
+Create config.yml
+
+```
+singleuser:
+  serviceAccountName: redshift
+hub:
+  config:
+    Authenticator:
+      admin_users:
+        - <admin>
+      allowed_users:
+        - <user 1>
+        - <user 2>
+    DummyAuthenticator:
+      password: <password>
+    JupyterHub:
+      authenticator_class: dummy
+```
+
 [Install JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/installation.html)
 ```
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
@@ -84,6 +103,18 @@ Add CNAME record (jhub.deeslabs.com) for [proxy-public](https://zero-to-jupyterh
 
 Create ACM cert for domain (jhub.deeslabs.com)  
 [Update the Helm config.yml](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html#off-loading-ssl-to-a-load-balancer)  
+```
+proxy:
+  https:
+    enabled: true
+    type: offload
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "<certificate arn>"
+```
 Run helm upgrade
 
 ## Redshift
