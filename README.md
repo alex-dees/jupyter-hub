@@ -56,7 +56,7 @@ iam:
     - "arn:aws:iam::aws:policy/AmazonRedshiftDataFullAccess"
     - "arn:aws:iam::<ACCOUNT ID>:policy/RedshiftGetClusterCredentials"
 ```
-Create cluster ([creates a dedicated VPC](https://eksctl.io/usage/vpc-networking/))
+Create cluster [creates a dedicated VPC](https://eksctl.io/usage/vpc-networking/)
 
 `eksctl create cluster -f cluster.yml`
 
@@ -93,8 +93,7 @@ helm upgrade --cleanup-on-fail \
   --version=1.2.0 \
   --values config.yml
 ```
-To update the config:  
-`helm upgrade -f config.yml -n jhub jhub jupyterhub/jupyterhub`
+To update the config: `helm upgrade -f config.yml -n jhub jhub jupyterhub/jupyterhub`
 
 ## DNS 
 Create R53 domain/zone e.g. deeslabs.com  
