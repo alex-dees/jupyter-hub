@@ -123,8 +123,7 @@ Create cluster subnet group (**jhub-cluster-subnet-group**)
 - VPC:  The EKS VPC
 - Add all the subnets for this VPC
 
-Create security group (**eks-vpc-sg**)
-- Inbound rule: All traffic, 192.168.0.0/16
+Create security group (**eks-vpc-sg**) to allow all VPC traffic
 
 Create cluster (**jhub-cluster**)
 - Node:  1 dc2.large
