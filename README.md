@@ -102,6 +102,7 @@ Add CNAME record (jhub.deeslabs.com) for [proxy-public](https://zero-to-jupyterh
 ## TLS
 
 Create ACM cert for domain (jhub.deeslabs.com)  
+
 [Update the Helm config.yml](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/security.html#off-loading-ssl-to-a-load-balancer)  
 ```
 proxy:
