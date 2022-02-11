@@ -139,7 +139,6 @@ Load [2010 Census Surname](https://www.census.gov/topics/population/genealogy/da
 Create a test user
 ```
 create user test_user password '<PASSWORD>';
-
 grant select on dev.public.names_2010_census to test_user;
 ```
 ## Uninstall
