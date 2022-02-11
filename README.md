@@ -14,7 +14,7 @@ Notes for manually deploying JupyterHub to EKS from an Amazon Workspace.
 
 ## IAM
 
-Create a **RedshiftGetClusterCredentials** policy to allow [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html).  The Redshift cluster and user are created later.
+Create a **RedshiftGetClusterCredentials** policy to allow **test_user** to [GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-iam-credentials-role-permissions.html).  The Redshift cluster and user are created later.
 
 
 ```
